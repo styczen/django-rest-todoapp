@@ -1,10 +1,12 @@
 from django.urls import include, path
 from django.contrib import admin
+# from rest_framework import routers
+# from api import views
 
+# router = routers.DefaultRouter()
+# router.register('todos', views.TodoView, 'todo')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('api.urls')),
-    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api/', include('api.urls'))
 ]
-

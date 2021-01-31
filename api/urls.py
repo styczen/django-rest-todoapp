@@ -1,10 +1,10 @@
-from django.urls import path
-from .views import TaskView, TaskEditView
+from django.urls import include, path
+from rest_framework import routers
+from . import views
 
-app_name = 'todo'
+router = routers.DefaultRouter()
+router.register('todos', views.TaskView, 'todo')
 
 urlpatterns = [
-    path('tasks/', TaskView.as_view(), name='all_tasks'),
-    path('tasks/<int:pk>/', TaskEditView.as_view(), name='edit_task'),
+    path('', include(router.urls))
 ]
-
