@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { number } from "yargs";
+// import { number } from "yargs";
 
 ReactDOM.render(
   <React.StrictMode>
