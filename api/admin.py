@@ -3,7 +3,7 @@ from .models import Task
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['text', 'due_date', 'complete', 'created_date_time']
+    list_display = ['text', 'complete']
 
 
 admin.site.register(Task, TaskAdmin)

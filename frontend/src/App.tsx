@@ -11,7 +11,6 @@ const App = () => {
       .then((data) => {
         const newTodos: Todo[] = [];
         for (let e of data) {
-          console.log(e.id);
           newTodos.push(e);
         }
         setTodos(newTodos);
@@ -29,31 +28,28 @@ const App = () => {
       }
       return todo;
     });
-    setTodos(newTodos);
 
-    // console.log(selectedTodo);
-    const requestOptions = {
+    fetch(`http://localhost:8000/api/todos/${selectedTodo.id}/`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(selectedTodo),
-    };
-    fetch("http://localhost:8000/api/todos/", requestOptions)
+      body: JSON.stringify({
+        text: selectedTodo.text,
+        complete: !selectedTodo.complete,
+      }),
+    })
       .then((resp) => resp.json())
-      .then((data) => console.log(data));
+      .then(() => setTodos(newTodos))
+      .catch((e) => console.log(e));
   };
 
   const addTodo: AddTodo = (text: string) => {
-    const newTodo: Todo = { text, complete: false };
-    setTodos([...todos, newTodo]);
-
-    const requestOptions = {
+    fetch("http://localhost:8000/api/todos/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newTodo),
-    };
-    fetch("http://localhost:8000/api/todos/", requestOptions)
+      body: JSON.stringify({ text: text, complete: false }),
+    })
       .then((resp) => resp.json())
-      .then((data) => console.log(data));
+      .then((data) => setTodos([...todos, data]));
   };
 
   return (
